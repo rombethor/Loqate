@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Authors>Daniel James Thorne</Authors>
+	  <Company>DJT Software</Company>
+	  <Description>Open source HTTPS client for Loqate's services.</Description>
+	  <PackageProjectUrl></PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/rombethor/loqate</RepositoryUrl>
+	  <Version>8.0.0</Version>
+	  <Title>Loqate HTTP Client</Title>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="OpenAPIs\.json" ClassName="PostcodeAnywhere" />
+  </ItemGroup>
+
+</Project>
