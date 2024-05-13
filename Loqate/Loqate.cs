@@ -17,22 +17,43 @@ namespace Loqate
     /// </summary>
     public class Loqate
     {
-        private static string _apikey;
-        public static string ApiKey {
+        private static Loqate? _instance = null;
+
+        private static Loqate Instance => _instance 
+            ?? throw new NotImplementedException("Loqate.Configure must be called before Loqate can be used.");
+
+        private string _apikey;
+        public string ApiKey {
             set
             {
                 _apikey = value;
             }
         }
 
-        private HttpClient http;
-
-        public Loqate()
+        // Configure Loqate
+        public static void Configure(string apiKey)
         {
+            _instance = new(apiKey);
+        }
+
+        private readonly HttpClient http;
+
+        private Loqate(string apiKey)
+        {
+            _apikey = apiKey;
+
             if (string.IsNullOrWhiteSpace(_apikey))
                 throw new WarningException("ApiKey has not been set.  Ensure that Loqate.ApiKey is provided a valid API key.");
 
-            http = new HttpClient()
+            // As client is in static instance, 
+            // ensure that connections refresh periodically
+            // in case of DNS changes.
+            var handler = new SocketsHttpHandler()
+            {
+                PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+            };
+
+            http = new HttpClient(handler)
             {
                 BaseAddress = new Uri(@"https://" + "api.everythinglocation.com/")
             };
@@ -45,7 +66,8 @@ namespace Loqate
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
-        public FindApi Find(string searchText) => new(http, _apikey, searchText);
+        public static FindApi Find(string searchText) => new(Instance.http, Instance._apikey, searchText);
+
 
         /// <summary>
         /// Returns the full address details based on the Id.
@@ -53,8 +75,9 @@ namespace Loqate
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public RetrieveApi Retrieve(string id) => new(http, _apikey, id);
+        public static RetrieveApi Retrieve(string id) => new(Instance.http, Instance._apikey, id);
 
+        
 
         /// <summary>
         /// (Legacy) <br/>
@@ -65,8 +88,8 @@ namespace Loqate
         /// <param name="query">A freeform partial address query. <br/> Example: "999 bak" or "bs328ga</param>
         /// <param name="country">A recognizable country name or ISO code. <br/> Example: "USA", "DE" or "New Zealand"</param>
         /// <returns></returns>
-        public CompleteApi EverythingLocation_Complete(string query, string country) 
-            => new CompleteApi(http, _apikey, query, country);
+        public static CompleteApi EverythingLocation_Complete(string query, string country) 
+            => new CompleteApi(Instance.http, Instance._apikey, query, country);
 
         /// <summary>
         /// (Legacy) <br/>
@@ -78,8 +101,8 @@ namespace Loqate
         /// <param name="country"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public CaptureApi EverythingLocation_Capture(string query, string country, int result)
-            => new CaptureApi(http, _apikey, query, country, result);
+        public static CaptureApi EverythingLocation_Capture(string query, string country, int result)
+            => new CaptureApi(Instance.http, Instance._apikey, query, country, result);
 
 
     }
