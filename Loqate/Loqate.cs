@@ -89,7 +89,7 @@ namespace Loqate
         /// <param name="country">A recognizable country name or ISO code. <br/> Example: "USA", "DE" or "New Zealand"</param>
         /// <returns></returns>
         public static CompleteApi EverythingLocation_Complete(string query, string country) 
-            => new CompleteApi(Instance.http, Instance._apikey, query, country);
+            => new(Instance.http, Instance._apikey, query, country);
 
         /// <summary>
         /// (Legacy) <br/>
@@ -102,7 +102,7 @@ namespace Loqate
         /// <param name="result"></param>
         /// <returns></returns>
         public static CaptureApi EverythingLocation_Capture(string query, string country, int result)
-            => new CaptureApi(Instance.http, Instance._apikey, query, country, result);
+            => new(Instance.http, Instance._apikey, query, country, result);
 
 
     }
