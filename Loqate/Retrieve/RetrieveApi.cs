@@ -34,7 +34,7 @@ namespace Loqate.Retrieve
 
         public async Task<RetrieveResponse> GetResponse()
         {
-            HttpRequestMessage msg = new(HttpMethod.Post, "https://api.addressy.com/Capture/Interactive/Retrieve/v1.2/json3.ws");
+            HttpRequestMessage msg = new(HttpMethod.Post, $"https://api.addressy.com/Capture/Interactive/Retrieve/v1.2/json3.ws?Key={_apiKey}&Id={_id}");
 
             var response = await _client.SendAsync(msg);
             if (response.IsSuccessStatusCode)
