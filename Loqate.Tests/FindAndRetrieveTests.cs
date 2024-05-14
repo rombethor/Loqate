@@ -16,19 +16,16 @@ namespace Loqate.Tests
                 .AddJsonFile("settings.json")
                 .Build();
 
-            Loqate.ApiKey = config["apikey"]
-                ?? throw new NotImplementedException("An API Key must be provided in the settings.json file as 'apikey'");
+            Loqate.Configure(config["apikey"] ?? string.Empty);
         }
 
         [TestMethod]
         public async Task TestMethod1()
         {
-            var loqate = new Loqate();
-
             FindItem[]? find = null;
             try
             {
-                find = await loqate.Find("PO6 3EN").GetResponse();
+                find = await Loqate.Find("PO6 3EN").GetResponse();
             }
             catch (LoqateException ex)
             {
@@ -37,12 +34,12 @@ namespace Loqate.Tests
 
             Assert.IsNotNull(find);
 
-            var narrow = loqate.Find("PO6 3EN").Container(find.First().Id).GetResponse().Result;
+            var narrow = Loqate.Find("PO6 3EN").Container(find.First().Id).GetResponse().Result;
 
             Assert.IsNotNull(narrow);
                 Console.WriteLine(JsonSerializer.Serialize(narrow));
 
-            var retrieve = loqate.Retrieve(narrow.First().Id);
+            var retrieve = Loqate.Retrieve(narrow.First().Id);
 
             Assert.IsNotNull(retrieve);
                 Console.WriteLine(JsonSerializer.Serialize(retrieve));
