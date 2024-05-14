@@ -1,6 +1,7 @@
 ﻿using Loqate.EverythingLocation.Capture;
 using Loqate.EverythingLocation.Complete;
 using Loqate.Find;
+using Loqate.Geolocation;
 using Loqate.Retrieve;
 using System;
 using System.ComponentModel;
