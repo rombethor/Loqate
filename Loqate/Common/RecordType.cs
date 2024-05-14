@@ -22,6 +22,8 @@ namespace Loqate.Common
         [EnumMember(Value = "BuildingName")]
         BuildingName,
         [EnumMember(Value = "Street")]
-        Street
+        Street,
+        [EnumMember(Value = "Commercial")]
+        Commercial
     }
 }
