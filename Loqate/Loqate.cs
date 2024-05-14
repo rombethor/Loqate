@@ -77,6 +77,18 @@ namespace Loqate
         /// <returns></returns>
         public static RetrieveApi Retrieve(string id) => new(Instance.http, Instance._apikey, id);
 
+        /// <summary>
+        /// A valuable optional add-on for Capture customers, this Reverse GeoLocationservice takes a 
+        /// latitude longitude point and returns addresses that are within a specified radius. 
+        /// This must be followed by a Retrieve to obtain a fully formatted address.
+        /// </summary>
+        /// <param name="longitude">Centre longitude</param>
+        /// <param name="latitude">Centre latitude</param>
+        /// <param name="limit">Number of results to return</param>
+        /// <param name="radius">Accuracy in meters.  Up to 200m maximum.</param>
+        /// <returns></returns>
+        public static GeolocationApi Geolocation(double longitude, double latitude, int limit, int radius)
+            => new(Instance._apikey, Instance.http, longitude, latitude, limit, radius);
         
 
         /// <summary>
