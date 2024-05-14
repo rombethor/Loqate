@@ -22,6 +22,7 @@ namespace Loqate.Tests
         [TestMethod]
         public async Task TestMethod1()
         {
+            Console.WriteLine(">>> Find");
             FindItem[]? find = null;
             try
             {
@@ -39,10 +40,22 @@ namespace Loqate.Tests
             Assert.IsNotNull(narrow);
                 Console.WriteLine(JsonSerializer.Serialize(narrow));
 
-            var retrieve = Loqate.Retrieve(narrow.First().Id);
+            Console.WriteLine(">>> Retrieve");
+            var retrieve = Loqate.Retrieve(narrow.First().Id)
+                .GetResponse();
 
             Assert.IsNotNull(retrieve);
                 Console.WriteLine(JsonSerializer.Serialize(retrieve));
+
+            Console.WriteLine(">>> Geolocation");
+            var geolocate = Loqate.Geolocation(-0.12, 51.5, 1, 100)
+                .GetResponse().Result;
+
+            Assert.IsNotNull(geolocate);
+            Assert.IsTrue(geolocate.Items.Length > 0);
+
+            Console.WriteLine(JsonSerializer.Serialize(geolocate));
+
         }
     }
 }

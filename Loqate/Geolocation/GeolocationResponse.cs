@@ -5,11 +5,11 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Loqate.Retrieve
+namespace Loqate.Geolocation
 {
-    public class RetrieveResponse
+    public class GeolocationResponse
     {
         [JsonPropertyName("Items")]
-        public RetrieveResponseItem[] Items { get; set; } = [];
+        public GeolocationResponseItem[] Items { get; set; } = [];
     }
 }
