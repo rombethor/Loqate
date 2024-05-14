@@ -11,7 +11,17 @@
 	  <RepositoryUrl>https://github.com/rombethor/loqate</RepositoryUrl>
 	  <Version>8.1.0</Version>
 	  <Title>Loqate HTTP Client</Title>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="OpenAPIs\.json" ClassName="PostcodeAnywhere" />
