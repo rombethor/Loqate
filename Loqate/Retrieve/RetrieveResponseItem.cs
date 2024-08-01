@@ -115,7 +115,7 @@ namespace Loqate.Retrieve
         public string? Label { get; set; }
 
         [JsonPropertyName("Type")]
-        public RecordType Type { get; set; }
+        public string? Type { get; set; }
 
         [JsonPropertyName("DataLevel")]
         public string? DataLevel { get; set; }
